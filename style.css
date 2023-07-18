@@ -42,3 +42,9 @@ body {
     background-color: #f2f2f2;
   }
   
+  #vendaTotal {
+    text-align: right;
+    font-weight: bold;
+    margin-top: 10px;
+  }
+  

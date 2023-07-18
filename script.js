@@ -1,61 +1,85 @@
-// Obter referências aos elementos do DOM
 const registroForm = document.getElementById('registroForm');
 const registroTable = document.getElementById('registroBody');
+const vendaTotal = document.getElementById('vendaTotal');
 
-// Array para armazenar os registros de mercadorias
 let registros = [];
+let totalVendas = 0;
 
-// Função para registrar a mercadoria
 function registrarMercadoria(event) {
   event.preventDefault();
 
-  // Obter os valores dos campos do formulário
-  const codigo = document.getElementById('codigo').value;
-  const mercadoria = document.getElementById('mercadoria').value;
-  const preco = document.getElementById('preco').value;
+  const codigoInput = document.getElementById('codigo');
+  const mercadoriaInput = document.getElementById('mercadoria');
+  const precoInput = document.getElementById('preco');
 
-  // Criar um objeto para representar a mercadoria
+  const codigo = codigoInput.value;
+  const mercadoria = mercadoriaInput.value;
+  const preco = parseFloat(precoInput.value);
+  const estoque = 0; // Inicialmente o estoque é zero
+
   const mercadoriaObj = {
     codigo,
     mercadoria,
-    preco
+    preco,
+    estoque
   };
 
-  // Adicionar a mercadoria ao array de registros
   registros.push(mercadoriaObj);
 
-  // Limpar os campos do formulário
-  document.getElementById('codigo').value = '';
-  document.getElementById('mercadoria').value = '';
-  document.getElementById('preco').value = '';
+  codigoInput.value = '';
+  mercadoriaInput.value = '';
+  precoInput.value = '';
 
-  // Atualizar a exibição dos registros
   exibirRegistros();
 }
 
-// Função para exibir os registros na tabela
+function venderMercadoria(codigo) {
+  const mercadoria = registros.find(item => item.codigo === codigo);
+
+  if (mercadoria && mercadoria.estoque > 0) {
+    mercadoria.estoque -= 1;
+    totalVendas += mercadoria.preco;
+
+    exibirRegistros();
+    exibirTotalVendas();
+  }
+}
+
 function exibirRegistros() {
-  // Limpar a tabela
   registroTable.innerHTML = '';
 
-  // Percorrer os registros e criar as linhas da tabela
   registros.forEach(mercadoria => {
     const row = document.createElement('tr');
     const codigoCell = document.createElement('td');
     const mercadoriaCell = document.createElement('td');
     const precoCell = document.createElement('td');
+    const estoqueCell = document.createElement('td');
+    const venderCell = document.createElement('td');
 
     codigoCell.textContent = mercadoria.codigo;
     mercadoriaCell.textContent = mercadoria.mercadoria;
-    precoCell.textContent = mercadoria.preco;
+    precoCell.textContent = mercadoria.preco.toString();
+    estoqueCell.textContent = mercadoria.estoque.toString();
+
+    const venderButton = document.createElement('button');
+    venderButton.textContent = 'Vender';
+    venderButton.addEventListener('click', () => venderMercadoria(mercadoria.codigo));
+
+    venderCell.appendChild(venderButton);
 
     row.appendChild(codigoCell);
     row.appendChild(mercadoriaCell);
     row.appendChild(precoCell);
+    row.appendChild(estoqueCell);
+    row.appendChild(venderCell);
 
     registroTable.appendChild(row);
   });
 }
 
-// Adicionar um event listener para o evento submit do formulário
+function exibirTotalVendas() {
+  vendaTotal.textContent = totalVendas.toFixed(2);
+}
+
 registroForm.addEventListener('submit', registrarMercadoria);
+exibirTotalVendas();

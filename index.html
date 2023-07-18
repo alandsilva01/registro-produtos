@@ -1,10 +1,11 @@
 <!DOCTYPE html>
-<html lang="pr-br">
+<html lang="en">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Document</title>
-     <link rel="stylesheet" type="text/css" href="style.css">
+  <title>Sistema de Registro de Mercadorias</title>
+  <link rel="stylesheet" type="text/css" href="style.css">
 </head>
 <body>
   <h1>Sistema de Registro de Mercadorias</h1>
@@ -28,11 +29,15 @@
         <th>Código</th>
         <th>Mercadoria</th>
         <th>Preço</th>
+        <th>Estoque</th>
+        <th></th>
       </tr>
     </thead>
     <tbody id="registroBody"></tbody>
   </table>
 
-  <script src="script.js"></script>
+  <p id="vendaTotal"></p>
+
+  <script src="script.js" type="module"></script>
 </body>
 </html>
