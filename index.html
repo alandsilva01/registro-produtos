@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html lang="pr-br">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+     <link rel="stylesheet" type="text/css" href="style.css">
+</head>
+<body>
+  <h1>Sistema de Registro de Mercadorias</h1>
+
+  <form id="registroForm">
+    <label for="codigo">Código:</label>
+    <input type="text" id="codigo" required>
+
+    <label for="mercadoria">Mercadoria:</label>
+    <input type="text" id="mercadoria" required>
+
+    <label for="preco">Preço:</label>
+    <input type="number" id="preco" required>
+
+    <button type="submit">Registrar</button>
+  </form>
+
+  <table id="registroTable">
+    <thead>
+      <tr>
+        <th>Código</th>
+        <th>Mercadoria</th>
+        <th>Preço</th>
+      </tr>
+    </thead>
+    <tbody id="registroBody"></tbody>
+  </table>
+
+  <script src="script.js"></script>
+</body>
+</html>
